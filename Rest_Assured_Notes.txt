@@ -1,0 +1,46 @@
+Rest Assured Notes:
+===================
+Java 9 users, follow this command:
+java -jar --add-modules java.xml.bind studentApp.jar
+
+Above command will run the command in port 8080. If you want change the port use following command:
+java -jar --add-modules java.xml.bind studentApp.jar --server.port=8085
+
+JSON Formatter:
+===============
+http://jsonviewer.stack.hu/
+
+QUERIES
+=======
+Environment variable name:LocalHost
+key = url
+value = http://localhost:8080
+
+GET Request:
+============
+List all:
+{{url}}/student/list
+
+List all computer science students, use query parameter after ?
+{{url}}/student/list?programme=Computer Science
+
+List 2 computer scince students, use query paramters
+{{url}}/student/list?programme=Computer Science&limit=2
+
+POST Request
+============
+Create/add a new object
+
+PUT or PATCH Request
+============
+update existing object
+
+Request Status
+==============
+200 - GET or PUT request successful, retrieved data successfully
+201 - POST request successful, new object has been created
+204 - DELETE request
+
+Rest-Assured API
+================
+To use POST request, jackson databind dependency is required. 

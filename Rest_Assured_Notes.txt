@@ -8,7 +8,11 @@ java -jar --add-modules java.xml.bind studentApp.jar --server.port=8085
 
 JSON Formatter:
 ===============
-http://jsonviewer.stack.hu/
+http://jsonviewer.stack.hu/ 
+
+XML Formatter:
+==============
+https://codebeautify.org/
 
 QUERIES
 =======
@@ -57,3 +61,7 @@ means, rest assured is implemented using groovy library. So in the above jsonpat
 - http://static.javadoc.io/io.rest-assured/json-path/3.0.2/io/restassured/path/json/JsonPath.html
 you will see it follows Groovy GPath syntax, similar to XPath. GPath can be used for XML and JSON.
 Link to Groovy Collection Methods - http://docs.groovy-lang.org/2.4.3/html/groovy-jdk/java/util/Collection.html
+
+
+To Assert JSON and XML use
+JSONAssert and XMLAssert libraries

@@ -20,7 +20,8 @@ public class JSONOutputAssertionExample extends TestBase {
 	@Test
 	public void getStudents() throws IOException, JSONException {
 		String expectedValue = new String(
-				Files.readAllBytes(Paths.get(System.getProperty("user.dir") + File.separator + "ExpectedStudentJSON.txt")));
+				Files.readAllBytes(Paths.get(System.getProperty("user.dir") + File.separator + "src" + File.separator + "main"
+						+ File.separator + "resources" + File.separator + "ExpectedStudentJSON.txt")));
 		
 		String actualValue = given().when().get("/list").asString();
 		

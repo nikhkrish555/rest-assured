@@ -65,3 +65,7 @@ Link to Groovy Collection Methods - http://docs.groovy-lang.org/2.4.3/html/groov
 
 To Assert JSON and XML use
 JSONAssert and XMLAssert libraries
+
+For file upload testing use
+===========================
+zamzar.com developer APIs

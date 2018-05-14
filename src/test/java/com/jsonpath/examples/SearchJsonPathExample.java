@@ -1,14 +1,22 @@
 package com.jsonpath.examples;
 
-import org.testng.annotations.Test;
 import static io.restassured.RestAssured.given;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.Matchers.*;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Iterator;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import org.testng.annotations.Test;
 
 import com.walmart.base.WalmartBase;
+
+import io.restassured.builder.RequestSpecBuilder;
+import io.restassured.builder.ResponseSpecBuilder;
+import io.restassured.specification.RequestSpecification;
+import io.restassured.specification.ResponseSpecification;
 
 public class SearchJsonPathExample extends WalmartBase {
 
@@ -16,8 +24,27 @@ public class SearchJsonPathExample extends WalmartBase {
 
 	@Test
 	public void extractNumberOfItems() {
-		assertThat(given().queryParam("query", "ipod").queryParam("apiKey", APIKEY).queryParam("format", "json").when()
-				.get("/search").then().extract().path("numItems")).as("check the number of items").isEqualTo(10);
+
+		// repetitive code can be removed using builder class. PFB:
+		RequestSpecBuilder requestBuilder = new RequestSpecBuilder();
+		RequestSpecification requestSpec;
+		requestBuilder.addQueryParam("query", "ipod");
+		requestBuilder.addQueryParam("apiKey", APIKEY);
+		requestBuilder.addQueryParam("format", "json");
+		requestBuilder.addHeader("Accept", "*/*");
+		requestSpec = requestBuilder.build();
+
+		// in response builder you can also add hamcrest assertions.
+		// eg: equalTo, hasItem
+		ResponseSpecBuilder responseBuilder = new ResponseSpecBuilder();
+		ResponseSpecification responseSpec;
+		responseBuilder.expectHeader("Server", "Mashery Proxy");
+		responseBuilder.expectStatusCode(200);
+		responseBuilder.expectResponseTime(lessThan(5L),TimeUnit.SECONDS);
+		responseSpec = responseBuilder.build();
+
+		assertThat(given().spec(requestSpec).when().get("/search").then().spec(responseSpec).extract().path("numItems"))
+				.as("check the number of items").isEqualTo(10);
 	}
 
 	@Test
@@ -30,7 +57,7 @@ public class SearchJsonPathExample extends WalmartBase {
 	public void extractProductNameOfSpecificItem() {
 		assertThat(given().queryParam("query", "ipod").queryParam("apiKey", APIKEY).queryParam("format", "json").when()
 				.get("/search").then().extract().path("items[0].name")).as("check the product name of specific item")
-						.isEqualTo("Apple iPod touch 128GB");
+						.isNotNull();
 	}
 
 	@Test

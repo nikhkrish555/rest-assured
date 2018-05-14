@@ -30,14 +30,16 @@ public class AssertionExamples extends WalmartBase {
 	public void extractProductNameOfSpecificItem() {
 		given().queryParam("query", "ipod").queryParam("apiKey", APIKEY).queryParam("format", "json").when()
 		.get("/search").then()
-		.body("items.name", hasItem("Apple iPod touch 128GB")); 
+		.root("items")
+		.body("name", hasItem("Apple iPod touch 128GB")); 
 	}
 	
 	@Test
 	public void extractProductNameOfMultipleItems() {
 		given().queryParam("query", "ipod").queryParam("apiKey", APIKEY).queryParam("format", "json").when()
 		.get("/search").then()
-		.body("items.name", hasItems("Apple iPod touch 128GB","Apple iPod touch 32GB")); 
+		.root("items")
+		.body("name", hasItems("Apple iPod touch 128GB","Apple iPod touch 32GB")); 
 	}
 	
 	@Test
